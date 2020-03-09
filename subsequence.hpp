@@ -95,7 +95,7 @@ sequence longest_nonincreasing_end_to_beginning(const sequence& A) {
       // TODO: write the statements to add A[i] to the
       // sequence R by storing it into R[j], decrement
       // index and increment j
-	R.insert(R.begin()+i, A[index]);
+	R.insert(R.begin()+j, A[i]);
 	index--;
 	j++;
 
@@ -110,6 +110,7 @@ sequence longest_nonincreasing_powerset(const sequence& A) {
   sequence best;
   std::vector<size_t> stack(n+1, 0);
   size_t k = 0;
+
   while (true) {
     
     if (stack[k] < n) {
@@ -133,6 +134,12 @@ sequence longest_nonincreasing_powerset(const sequence& A) {
     // larger than the size of the current best if both 
     // conditions are satisfied, then stored candidate 
     // in best
+   int curBest = best.size();
+
+   for(int i = 0; i < k; i++){
+     if(candidate[i] < candidate[i+1] && candidate.size() > curBest)
+	best.push_back(candidate[i]);
+    }
   }
   return best;
 }
