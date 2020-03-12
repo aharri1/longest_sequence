@@ -6,7 +6,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-
+using namespace std;
 #include <algorithm>
 #include <cassert>
 #include <random>
@@ -54,9 +54,13 @@ sequence random_sequence(size_t size, unsigned seed, int max_element) {
 
 bool is_nonincreasing(const sequence& A) {
   //TO DO: Write code for this function, including rewriting the return
-  // statement, and then delete these comments.
-  return false;
-  }
+  // statement, and then delete these comments
+    for(int i =0 ; i < A.size()-1; ++i){
+        if(A[i] < A[i+1])
+            return false;
+    }
+return true;
+}
 
 sequence longest_nonincreasing_end_to_beginning(const sequence& A) {
   
@@ -108,38 +112,39 @@ sequence longest_nonincreasing_end_to_beginning(const sequence& A) {
 sequence longest_nonincreasing_powerset(const sequence& A) {
   const size_t n = A.size();
   sequence best;
+ // sequence candidate;
   std::vector<size_t> stack(n+1, 0);
   size_t k = 0;
 
   while (true) {
-    
+
     if (stack[k] < n) {
       stack[k+1] = stack[k] + 1;
       ++k;
-    } else {
+    }
+    else {
       stack[k-1]++;
       k--;
     }
-    
+
     if (k == 0) {
       break;
     }
-    
+
     sequence candidate;
-    for (size_t i = 1; i <= k; ++i) {
-      candidate.push_back(A[stack[i]-1]);
-    }
+    for (size_t i = 1; i <= k; ++i){
+     candidate.push_back(A[stack[i]-1]);
+   }
+
     // TODO: write the if statement to test whether candidate
     // determines a non-increasing sequence AND has a size
     // larger than the size of the current best if both 
     // conditions are satisfied, then stored candidate 
     // in best
-   int curBest = best.size();
 
-   for(int i = 0; i < k; i++){
-     if(candidate[i] < candidate[i+1] && candidate.size() > curBest)
-	best.push_back(candidate[i]);
-    }
-  }
+     if(is_nonincreasing(candidate)  && candidate.size() > best.size())
+	best = candidate;
+
+}
   return best;
 }
