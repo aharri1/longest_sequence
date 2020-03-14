@@ -74,9 +74,7 @@ sequence longest_nonincreasing_end_to_beginning(const sequence& A) {
   // the loop condition is i >= 0
   for (signed int i = n-2;  i>= 0; i--) {
     for (size_t j = i+1; j < n ; j++) {
-      // TODO: write the statements that compute the value of
-      // H[i] based on conditions that involve A[i], A[j] and H[j]
-	if((A[j] <= A[i]) && (H[j] >= H[i])){
+	 if((A[j] <= A[i]) && (H[j] >= H[i])){
 		H[i] = H[j]+1;
 	}
     }
@@ -96,9 +94,6 @@ sequence longest_nonincreasing_end_to_beginning(const sequence& A) {
   size_t index = max-1, j = 0;
   for (size_t i = 0; i < n; ++i) {
     if (H[i] == index) {
-      // TODO: write the statements to add A[i] to the
-      // sequence R by storing it into R[j], decrement
-      // index and increment j
 	R.insert(R.begin()+j, A[i]);
 	index--;
 	j++;
